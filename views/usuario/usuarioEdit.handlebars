@@ -1,0 +1,24 @@
+<h1>Editar Usuário</h1>
+<form class="bg-dark text-white" action="/usuarioEdit" method="post">
+    <input type="hidden" name="id" value="{{usuarios._id}}">
+    <input type="hidden" name="tipo" value="{{usuarios.tipo}}">
+    <input type="hidden" name="tipo_descricao" value="{{usuarios.tipo_descricao}}">
+    <div class="form-group col-3">
+        <label for="campoNome">Nome</label>
+        <input type="text" class="form-control" id="campoNome" name="nome"  value="{{usuarios.nome}}">
+    </div>
+    <div class="form-group col-3">
+        <label for="campoSenha">Senha</label>
+        <input type="text" class="form-control" id="campoSenha" name="senha" value="{{usuarios.senha}}">
+    </div>
+    <div class="form-group col-3">
+        <label for="campoPergunta">Pergunta Secreta</label>
+        <input type="text" class="form-control" id="campoPergunta" name="pergunta_secreta" value="{{usuarios.pergunta_secreta}}">
+    </div>
+    <div class="form-group col-3">
+        <label for="campoResposta">Resposta Secreta</label>
+        <input type="text" class="form-control" id="campoResposta" name="resposta_pergunta" value="{{usuarios.resposta_pergunta}}">
+    </div>
+    <button type="submit" class="btn btn-dark">Editar</button>
+    <br><br>
+</form>

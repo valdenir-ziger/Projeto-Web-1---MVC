@@ -48,19 +48,26 @@ module.exports = {
         });
     },
     async getCreate(req, res) {
-        res.render('usuario/usuarioCreate', { layout: 'noMenu.handlebars'});
+        //res.render('usuario/usuarioCreate', { layout: 'noMenu.handlebars'});
+        res.render('usuario/usuarioCreate');
     },
     async postCreate(req, res) {
-        //if(req.session.login == undefined){
-        //    res.redirect('usuario/login');
-        //}else{
-            const {nome, login, senha, pergunta_secreta, resposta_pergunta} = req.body;
-            const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta});
-            await usuario.save().catch((err) => {
-                console.log(err); 
-            });
-            res.redirect('/home');
-        //}
+        const {nome, login, senha, pergunta_secreta, resposta_pergunta} = req.body;
+        const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta});
+        if (usuario.tipo == 0){
+            usuario.tipo_descricao = "Administrador";
+        }
+        else if (usuario.tipo == 1) {
+            usuario.tipo_descricao = "Ouvinte/Votante";
+        }
+        else{
+            usuario.tipo_descricao = "Candidato";
+        }
+
+        await usuario.save().catch((err) => {
+            console.log(err); 
+        });
+        res.redirect('/home');
     },
     async getList(req, res) {
         if(req.session.login == undefined){
@@ -72,6 +79,38 @@ module.exports = {
                 console.log(err); 
                 res.redirect('/home')
             });
+        }
+    },
+    async getEdit(req, res) {
+        await Usuario.findOne({ _id: req.params.id }).then((usuarios) => {
+            res.render('usuario/usuarioEdit', { usuarios: usuarios.toJSON() });
+        });
+    },
+    async postEdit(req, res) {
+        if(req.session.login == undefined){
+            res.redirect('usuario/login');
+        }else{
+            var {nome, senha, pergunta_secreta, resposta_pergunta, tipo, tipo_descricao} = req.body;
+            if (tipo == 0){
+                tipo_descricao = "Administrador";
+            }
+            else if (tipo == 1) {
+                tipo_descricao = "Ouvinte/Votante";
+            }
+            else{
+                tipo_descricao = "Candidato";
+            }
+
+            await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, pergunta_secreta, resposta_pergunta, tipo, tipo_descricao});
+            res.redirect('/usuarioList');
+        }
+    },
+    async getDelete(req, res) {
+        if(req.session.login == undefined){
+            res.redirect('usuario/login');
+        }else{
+            await Usuario.findOneAndRemove({ _id: req.params.id });
+            res.redirect('/usuarioList');
         }
     }
 }   

@@ -31,9 +31,12 @@ route.post("/login"               , controllerUsuario.postLogin);
 route.get("/recuperarSenha/:login", controllerUsuario.getRecuperarSenha);
 route.post("/recuperarSenha"      , controllerUsuario.postRecuperarSenha);
 //Usuario - CRUD
-route.get("/usuarioCreate" , controllerUsuario.getCreate);
-route.post("/usuarioCreate", controllerUsuario.postCreate);
-route.get("/usuarioList"   , controllerUsuario.getList);
+route.get("/usuarioCreate"    , controllerUsuario.getCreate);
+route.post("/usuarioCreate"   , controllerUsuario.postCreate);
+route.get("/usuarioList"      , controllerUsuario.getList);
+route.get("/usuarioEdit/:id"  , controllerUsuario.getEdit);
+route.post("/usuarioEdit"     , controllerUsuario.postEdit);
+route.get("/usuarioDelete/:id", controllerUsuario.getDelete);
 
 //Controller Receita
 //Receita-CRUD

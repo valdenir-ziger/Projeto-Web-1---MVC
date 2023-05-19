@@ -35,6 +35,12 @@ const Usuario = Schema({
         max: 2, 
         default: 1
     },
+    tipo_descricao: { 
+        type: String,
+        trim: true, 
+        default: "Ouvinte/Votante",
+        required: true 
+    }
 });
 
 module.exports = mongoose.model("Usuario", Usuario)

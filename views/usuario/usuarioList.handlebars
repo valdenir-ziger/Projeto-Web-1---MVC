@@ -2,12 +2,14 @@
 <table class="table table-striped bg-dark text-white text-start col-8">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Matrícula</th>
-            <th scope="col">Senha</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Pergunta Secreta</th>
-            <th scope="col">Resposta Secreta</th>
-            <th scope="col">Tipo Usuário</th>
+            <th scope="col" class="col-1">Matrícula</th>
+            <th scope="col" class="col-1">Senha</th>
+            <th scope="col" class="col-1">Nome</th>
+            <th scope="col" class="col-1">Pergunta</th>
+            <th scope="col" class="col-1">Resposta</th>
+            <th scope="col" class="col-1">Tipo</th>
+            <th scope="col" class="col-1">Editar</th>
+            <th scope="col" class="col-1">Excluir</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +20,9 @@
         <td>{{nome}}</td>
         <td>{{pergunta_secreta}}</td>
         <td>{{resposta_pergunta}}</td>
-        <td>{{tipo}}</td>
+        <td>{{tipo_descricao}}</td>
+        <td><a href="usuarioEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
+        <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
     {{/each}}
     </tbody>
 </table>

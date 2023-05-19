@@ -51,16 +51,16 @@ module.exports = {
         res.render('usuario/usuarioCreate', { layout: 'noMenu.handlebars'});
     },
     async postCreate(req, res) {
-        if(req.session.login == undefined){
-            res.redirect('usuario/login');
-        }else{
+        //if(req.session.login == undefined){
+        //    res.redirect('usuario/login');
+        //}else{
             const {nome, login, senha, pergunta_secreta, resposta_pergunta} = req.body;
             const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta});
             await usuario.save().catch((err) => {
                 console.log(err); 
             });
             res.redirect('/home');
-        }
+        //}
     },
     async getList(req, res) {
         if(req.session.login == undefined){

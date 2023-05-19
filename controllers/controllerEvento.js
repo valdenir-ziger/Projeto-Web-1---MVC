@@ -1,36 +1,36 @@
-const Receita = require('../models/models_nosql/receita');
+const Evento = require('../models/models_nosql/evento');
 
 module.exports = {
     async getCreate(req, res) {
-        res.render('receita/receitaCreate');
+        res.render('evento/eventoCreate');
     },
     async postCreate(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        const receita = new Receita({nome, ingredientes, preparo, imagem});
-        await receita.save();
+        const evento = new Evento({nome, ingredientes, preparo, imagem});
+        await evento.save();
         res.redirect('/home');
     },
     async getList(req, res) {
-        Receita.find().then((receitas) => {
-            res.render('receita/receitaList', {receitas: receitas.map(receitas => receitas.toJSON())});
+        Evento.find().then((eventos) => {
+            res.render('evento/eventoList', {eventos: eventos.map(eventos => eventos.toJSON())});
         });
     },
     async getEdit(req, res) {
-        await Receita.findOne({ _id: req.params.id }).then((receitas) => {
-            res.render('receita/receitaEdit', { receitas: receitas.toJSON() });
+        await Evento.findOne({ _id: req.params.id }).then((eventos) => {
+            res.render('evento/eventoEdit', { eventos: eventos.toJSON() });
         });
     },
     async postEdit(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        await Receita.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
-        res.redirect('/receitaList');
+        await Evento.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
+        res.redirect('/eventoList');
     },
     async getDelete(req, res) {
-        await Receita.findOneAndRemove({ _id: req.params.id });
-        res.redirect('/receitaList');
+        await Evento.findOneAndRemove({ _id: req.params.id });
+        res.redirect('/eventoList');
     }
 }

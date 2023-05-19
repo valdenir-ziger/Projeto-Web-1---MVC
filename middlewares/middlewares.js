@@ -10,7 +10,7 @@ module.exports = {
             next();
         else if ((req.url == '/login') && (req.method == 'POST'))
             next();
-        else if ((req.url).split('/')[1] == 'recuperarSenha')
+        else if ((req.url).split('/')[1].substr(0, 14) == 'recuperarSenha')
             next();
         else if ((req.url).split('/')[1] == 'usuarioCreate')
             next();

@@ -1,11 +1,10 @@
 const mongoose   = require('mongoose');
 const Schema     = mongoose.Schema;
-const randomUUID = require('crypto');
 
 const Evento = Schema({
     id: {
-        type: 'UUID',
-        default: () => randomUUID(),
+        type:Schema.Types.ObjectId, 
+        default: new mongoose.mongo.ObjectId()
     },
     descricao: {
         type: String, 

@@ -1,36 +1,36 @@
-const Receita = require('../models/models_nosql/receita');
+const Votacao = require('../models/models_nosql/votacao');
 
 module.exports = {
     async getCreate(req, res) {
-        res.render('receita/receitaCreate');
+        res.render('votacao/votacaoCreate');
     },
     async postCreate(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        const receita = new Receita({nome, ingredientes, preparo, imagem});
-        await receita.save();
+        const votacao = new Votacao({nome, ingredientes, preparo, imagem});
+        await votacao.save();
         res.redirect('/home');
     },
     async getList(req, res) {
-        Receita.find().then((receitas) => {
-            res.render('receita/receitaList', {receitas: receitas.map(receitas => receitas.toJSON())});
+        Votacao.find().then((votacao) => {
+            res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
         });
     },
     async getEdit(req, res) {
-        await Receita.findOne({ _id: req.params.id }).then((receitas) => {
-            res.render('receita/receitaEdit', { receitas: receitas.toJSON() });
+        await Votacao.findOne({ _id: req.params.id }).then((votacao) => {
+            res.render('votacao/votacaoEdit', { votacao: votacao.toJSON() });
         });
     },
     async postEdit(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        await Receita.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
-        res.redirect('/receitaList');
+        await Votacao.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
+        res.redirect('/votacaoList');
     },
     async getDelete(req, res) {
-        await Receita.findOneAndRemove({ _id: req.params.id });
-        res.redirect('/receitaList');
+        await Votacao.findOneAndRemove({ _id: req.params.id });
+        res.redirect('/votacaoList');
     }
 }

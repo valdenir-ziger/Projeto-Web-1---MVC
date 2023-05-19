@@ -1,36 +1,36 @@
-const Receita = require('../models/models_nosql/receita');
+const Apresentacao = require('../models/models_nosql/apresentacao');
 
 module.exports = {
     async getCreate(req, res) {
-        res.render('receita/receitaCreate');
+        res.render('apresentacao/apresentacaoCreate');
     },
     async postCreate(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        const receita = new Receita({nome, ingredientes, preparo, imagem});
-        await receita.save();
+        const apresentacao = new Apresentacao({nome, ingredientes, preparo, imagem});
+        await apresentacao.save();
         res.redirect('/home');
     },
     async getList(req, res) {
-        Receita.find().then((receitas) => {
-            res.render('receita/receitaList', {receitas: receitas.map(receitas => receitas.toJSON())});
+        Apresentacao.find().then((apresentacao) => {
+            res.render('apresentacao/apresentacaoList', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
         });
     },
     async getEdit(req, res) {
-        await Receita.findOne({ _id: req.params.id }).then((receitas) => {
-            res.render('receita/receitaEdit', { receitas: receitas.toJSON() });
+        await Apresentacao.findOne({ _id: req.params.id }).then((apresentacao) => {
+            res.render('apresentacao/apresentacaoEdit', { apresentacao: apresentacao.toJSON() });
         });
     },
     async postEdit(req, res) {
         const {nome, ingredientes, preparo} = req.body;
         const imagem = req.imageName;
         console.log(imagem);
-        await Receita.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
-        res.redirect('/receitaList');
+        await Apresentacao.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
+        res.redirect('/apresentacaoList');
     },
     async getDelete(req, res) {
-        await Receita.findOneAndRemove({ _id: req.params.id });
-        res.redirect('/receitaList');
+        await Apresentacao.findOneAndRemove({ _id: req.params.id });
+        res.redirect('/apresentacaoList');
     }
 }

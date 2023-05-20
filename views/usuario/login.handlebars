@@ -6,11 +6,11 @@
 <body>
     <form action="/login" method="post" class="col-auto">
         <div class="input-group input-group-sm col-2">
-            <input type="text" class="form-control" placeholder="Matrícula" id="campoLogin" name="login">
+            <input type="text" class="form-control" required placeholder="Matrícula" id="campoLogin" name="login">
         </div>
         <br>
         <div class="input-group input-group-sm col-2">
-            <input type="password" class="form-control" placeholder="Senha" id="campoSenha" name="senha">
+            <input type="password" class="form-control" required placeholder="Senha" id="campoSenha" name="senha">
         </div>
         <div class="form-group"></div>
             <button type="submit" class="btn btn-secondary">Logar</button> 
@@ -21,10 +21,17 @@
             window.location.href = "/usuarioCreate"
         }
     </script>
+    <br>
     <button onclick=cadastrar() class="btn btn-secondary">Cadastrar</button>
     <script> 
         function recuperarSenha() { 
-            window.location.href = "/recuperarSenha/:" + document.getElementById("campoLogin").value
+            if(document.getElementById("campoLogin").value.length == 0){
+                alert("Campo 'Matrícula' é obrigatório!");
+                document.getElementById("campoLogin").focus();
+            }
+            else{
+                window.location.href = "/recuperarSenha/" + document.getElementById("campoLogin").value;
+            }
         }
     </script>
     <button onclick=recuperarSenha() class="btn btn-secondary">Recuperar Senha</button>

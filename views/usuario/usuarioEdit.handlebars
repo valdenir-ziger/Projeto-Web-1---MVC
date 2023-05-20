@@ -1,4 +1,4 @@
-<h1>Editar Usuário</h1>
+<h2>Matrícula: {{usuarios.login}}</h2>
 <form class="bg-dark text-white" action="/usuarioEdit" method="post">
     <input type="hidden" name="id" value="{{usuarios._id}}">
     <input type="hidden" name="tipo" value="{{usuarios.tipo}}">
@@ -19,6 +19,17 @@
         <label for="campoResposta">Resposta Secreta</label>
         <input type="text" class="form-control" id="campoResposta" name="resposta_pergunta" value="{{usuarios.resposta_pergunta}}">
     </div>
-    <button type="submit" class="btn btn-dark">Editar</button>
+    <div class="input-group mb-3 col-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="campoTipo">Tipo</label>
+        </div>
+        <select class="custom-select" id="campoTipo" name="tipo">
+            <option value="{{usuarios.tipo}}" selected>{{usuarios.tipo_descricao}}</option>
+            <option value="2">Candidato</option>
+            <option value="1">Ouvinte/Votante</option>
+            <option value="0">Administrador</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-secondary">Salvar</button>
     <br><br>
 </form>

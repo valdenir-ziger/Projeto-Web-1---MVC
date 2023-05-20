@@ -1,4 +1,9 @@
-Senha Atual: {{senha}}
-<br>
-<br>
-<a href="/">Voltar para tela de login</a>
+<div class="form-group col-3">
+    <label for="campoLogin">Senha Atual: {{senha}}</label>
+</div>
+<script> 
+    function voltar() { 
+        window.location.href = "/"
+    }
+</script>
+<button onclick=voltar() class="btn btn-secondary">Voltar para tela de login</button>

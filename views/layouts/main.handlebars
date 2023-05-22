@@ -15,7 +15,7 @@
 
 <body class= "bg-dark text-white">
     <nav class="navbar fixed-top navbar-expand-lg  navbar-dark" style="background-color: #454749;">
-        <a class="navbar-brand" href="/home">Bem Vindo</a>
+        <a class="navbar-brand" href="/home">Bem Vindo {{user}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,36 +33,41 @@
                         <a class="dropdown-item" href="/votacaoGeral">Visualizar Ranking</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Eventos
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/eventoCreate">Cadastrar</a>
-                        <a class="dropdown-item" href="/eventoList">Listar Eventos</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Usuários
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/usuarioCreate">Cadastrar</a>
-                        <a class="dropdown-item" href="/usuarioList">Listar Usuários</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Apresentações
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/apresentacaoCreate">Cadastrar</a>
-                        <a class="dropdown-item" href="/apresentacaoList">Listar Apresentações</a>
-                    </div>
-                </li>
+                {{#if isAdministrador}} 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Eventos
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/eventoCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/eventoList">Listar Eventos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuários
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/usuarioCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/usuarioList">Listar Usuários</a>
+                        </div>
+                    </li>
+                {{/if}}
+
+                {{#if isCandidato}} 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Apresentações
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/apresentacaoCreate">Cadastrar</a>
+                            <a class="dropdown-item" href="/apresentacaoList">Listar Apresentações</a>
+                        </div>
+                    </li>
+                {{/if}}
                 <li class="/logout">
                     <a class="nav-link" href="/logout">Sair</a>
                 </li>

@@ -17,9 +17,11 @@ module.exports = {
         await Usuario.findOne({login: req.body.login, 
                                senha: req.body.senha}).then((usuarios) => {
             if (usuarios != null) {
-                req.session.login = req.body.login;
-                req.session.user  = usuarios.nome;
-                console.log("Usuário " + req.session.login + " acabou de conectar!"); 
+                req.session.login           = req.body.login;
+                req.session.user            = usuarios.nome;
+                req.session.tipo            = usuarios.tipo;
+                req.session.tipo_descricao  = usuarios.tipo_descricao;
+                console.log("Usuário " + req.session.login + " acabou de conectar como " + req.session.tipo_descricao + "!"); 
                 res.redirect('/home');
             }
 
@@ -36,7 +38,6 @@ module.exports = {
                     login: req.params.login, 
                     pergunta: usuarios[0].pergunta_secreta});
         });
-
     },
     async postRecuperarSenha(req, res) {
         Usuario.find({login:             req.body.login, 
@@ -57,12 +58,12 @@ module.exports = {
         res.render('usuario/usuarioCreate');
     },
     async postCreate(req, res) {
-        const {nome, login, senha, pergunta_secreta, resposta_pergunta} = req.body;
-        const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta});
-        if (usuario.tipo == 0){
+        const {nome, login, senha, pergunta_secreta, resposta_pergunta, tipo} = req.body;
+        const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta, tipo});
+        if (tipo == 0){
             usuario.tipo_descricao = "Administrador";
         }
-        else if (usuario.tipo == 1) {
+        else if (tipo == 1) {
             usuario.tipo_descricao = "Ouvinte/Votante";
         }
         else{

@@ -5,7 +5,7 @@
     </div>
     <br>
     <div class="input-group input-group-sm col-2">
-        <input type="text" class="form-control bg-dark text-white" placeholder="Matrícula" id="campoLogin" name="login">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Matrícula/Login" id="campoLogin" name="login">
     </div>
     <br>
     <div class="input-group input-group-sm col-2">
@@ -20,5 +20,12 @@
         <input type="text" class="form-control bg-dark text-white" placeholder="Resposta Secreta" id="campoResposta" name="resposta_pergunta">
     </div>
     <br>
+    <div class="input-group mb-3 col-2">
+        <select class="custom-select bg-dark text-white" id="campoTipo" name="tipo">
+            <option value="2">Candidato</option>
+            <option value="1" selected>Ouvinte/Votante</option>
+        </select>
+    </div>
     <input type="submit" class="btn btn-secondary" value="Cadastrar">
+    <br><br>
 </form>

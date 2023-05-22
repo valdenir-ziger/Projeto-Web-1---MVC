@@ -1,21 +1,43 @@
-<h1>Cadastrar Evento</h1>
-<form class="bg-dark text-white" action="/eventoCreate" method="post">
-    <div class="input-group input-group-sm col-3">
-        <input type="text" class="form-control bg-dark text-white" placeholder="Nome do Evento" id="campoNome" name="nome">
+<h2>Cadastre Sua Apresentação</h2>
+<form class="bg-dark text-white" action="/apresentacaoCreate" method="post">
+    <br>
+    <div class="input-group mb-3 col-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text bg-dark text-white" for="campoEvento">Evento</label>
+        </div>
+        <select class="custom-select bg-dark text-white" id="campoEvento" name="id_evento" required>
+            {{#each eventos}}
+                <option value={{_id}}>{{nome}}</option>
+            {{/each}}
+        </select>
     </div>
     <br>
     <div class="input-group input-group-sm col-3">
-        <textarea class="form-control bg-dark text-white" placeholder="Descrição" id="campoDescricao" name="descricao"></textarea>
+        <input type="text" class="form-control bg-dark text-white" placeholder="Nome da Canção" id="campoNome" name="musica" required>
     </div>
     <br>
-    <div class='input-group date col-3'>
-        <label for="date" class="col-sm-6 col-form-label">Data do Início </label>
-        <input type="date" class="form-control bg-dark text-white col-auto" id="campoDataInicio" name="data_inicio" required>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 1" id="campoNome1" name="participante1" required>
     </div>
     <br>
-    <div class='input-group date col-3'>
-        <label for="date" class="col-sm-6 col-form-label">Data do Término</label>
-        <input type="date" class="form-control bg-dark text-white col-auto" id="campoDataFim" name="data_fim" required>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 2" id="campoNome2" name="participante2">
+    </div>
+    <br>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 3" id="campoNome3" name="participante3">
+    </div>
+    <br>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 4" id="campoNome4" name="participante4">
+    </div>
+    <br>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 5" id="campoNome5" name="participante5">
+    </div>
+    <br>
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Participante Nº 6" id="campoNome6" name="participante6">
     </div>
     <br>
     <button type="submit" class="btn btn-secondary">Cadastrar</button>

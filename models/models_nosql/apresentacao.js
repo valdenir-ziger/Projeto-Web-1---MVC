@@ -10,6 +10,10 @@ const Apresentacao = Schema({
         type: String,
         required: true 
     },
+    descricao_evento: {
+        type: String,
+        required: true 
+    },
     matricula: {
         type: String,
         required: true 
@@ -30,26 +34,37 @@ const Apresentacao = Schema({
         type: String, 
         lowercase: true, 
         trim: true, 
-        required: false 
+        required: false,
+        default: undefined
     },
 	participante3: { 
         type: String, 
         lowercase: true, 
         trim: true, 
-        required: false 
+        required: false,
+        default: undefined 
     },
     participante4: {
         type: String,
         lowercase: true, 
         trim: true,  
-        required: false 
+        required: false,
+        default: undefined 
     },
     participante5: { 
         type: String,
         lowercase: true, 
         trim: true,  
-        required:false
+        required:false,
+        default: undefined
     },
+    participante6: { 
+        type: String,
+        lowercase: true, 
+        trim: true,  
+        required:false,
+        default: undefined
+    }
 });
 
 module.exports = mongoose.model("Apresentacao", Apresentacao)

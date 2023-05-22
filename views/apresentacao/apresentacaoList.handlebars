@@ -1,23 +1,31 @@
-<h2>Lista de Eventos</h2>
+<h2>Minhas Apresentações</h2>
 <div class="table-responsive"></div>
-    <table class="table table-sm bg-dark text-white text-start col-8">
+    <table class="table table-sm table-dark">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Descrição</th>
-                <th data-type="date">Início</th>
-                <th data-type="date">Término</th>
+                <th scope="col">Evento</th>
+                <th scope="col">Música</th>
+                <th scope="col">Partic. 1</th>
+                <th scope="col">Partic. 2</th>
+                <th scope="col">Partic. 3</th>
+                <th scope="col">Partic. 4</th>
+                <th scope="col">Partic. 5</th>
+                <th scope="col">Partic. 6</th>
             </tr>
         </thead>
         <tbody>
-        {{#each eventos}}
+        {{#each apresentacao}}
         <tr>
-            <th scope="row">{{nome}}</th>
-            <td>{{descricao}}</td>
-            <td>{{data_inicio_exibicao}}</td>
-            <td>{{data_fim_exibicao}}</td>
-            <td><a href="eventoEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
-            <td><a href="eventoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            <th scope="row">{{descricao_evento}}</th>
+            <td>{{musica}}</td>
+            <td>{{participante1}}</td>
+            <td>{{participante2}}</td>
+            <td>{{participante3}}</td>
+            <td>{{participante4}}</td>
+            <td>{{participante5}}</td>
+            <td>{{participante6}}</td>
+            <td><a href="apresentacaoEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
+            <td><a href="apresentacaoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
         {{/each}}
         </tbody>
     </table>

@@ -6,17 +6,29 @@ const Evento = Schema({
         type:Schema.Types.ObjectId, 
         default: new mongoose.mongo.ObjectId()
     },
+    nome: {
+        type: String, 
+        required: true 
+    },
     descricao: {
         type: String, 
         required: true 
     },
-    datainicio: { 
+    data_inicio: { 
         type: Date,
         default: Date.now, 
         required: true 
     },
-	datafim: { 
+    data_inicio_exibicao: { 
+        type: String,
+        required: true 
+    },
+	data_fim: { 
         type: Date,
+        required: false 
+    },
+	data_fim_exibicao: { 
+        type: String,
         required: false 
     }
 });

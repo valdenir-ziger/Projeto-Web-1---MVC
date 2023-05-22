@@ -1,0 +1,24 @@
+<h1>Cadastrar Evento</h1>
+<form class="bg-dark text-white" action="/eventoCreate" method="post">
+    <div class="input-group input-group-sm col-3">
+        <input type="text" class="form-control bg-dark text-white" placeholder="Nome do Evento" id="campoNome" name="nome">
+    </div>
+    <br>
+    <div class="input-group input-group-sm col-3">
+        <textarea class="form-control bg-dark text-white" placeholder="Descrição" id="campoDescricao" name="descricao"></textarea>
+    </div>
+    <br>
+    <div class='input-group date col-3'>
+        <label for="date" class="col-sm-6 col-form-label">Data do Início </label>
+        <input type="date" class="form-control bg-dark text-white col-auto" id="campoDataInicio" name="data_inicio" required>
+    </div>
+    <br>
+    <div class='input-group date col-3'>
+        <label for="date" class="col-sm-6 col-form-label">Data do Término</label>
+        <input type="date" class="form-control bg-dark text-white col-auto" id="campoDataFim" name="data_fim" required>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-secondary">Cadastrar</button>
+    <br><br>
+</form>
+

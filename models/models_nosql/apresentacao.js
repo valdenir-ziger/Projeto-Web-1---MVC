@@ -6,6 +6,14 @@ const Apresentacao = Schema({
         type:Schema.Types.ObjectId, 
         default: new mongoose.mongo.ObjectId()
     },
+    id_evento: {
+        type: String,
+        required: true 
+    },
+    matricula: {
+        type: String,
+        required: true 
+    },
     musica : {
         type: String, 
         lowercase: true, 
@@ -16,7 +24,7 @@ const Apresentacao = Schema({
         type: String,
         lowercase: true, 
         trim: true,  
-        required: true 
+        required: false 
     },
 	participante2: { 
         type: String, 
@@ -42,12 +50,6 @@ const Apresentacao = Schema({
         trim: true,  
         required:false
     },
-    participante6: { 
-        type: String, 
-        lowercase: true, 
-        trim: true, 
-        required:false
-    }
 });
 
 module.exports = mongoose.model("Apresentacao", Apresentacao)

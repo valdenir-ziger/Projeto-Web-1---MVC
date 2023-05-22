@@ -8,6 +8,7 @@ const middlewares  = require('./middlewares/middlewares');
 const express      = require('express');
 const app          = express();
 const path         = require('path');
+//Execute npm init -y para gerar um pacote e automaticamente e aceitar todos os padrões.
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser()); 

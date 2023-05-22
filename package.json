@@ -1,7 +1,7 @@
 {
   "name": "projeto-web-1---mvc",
   "version": "1.0.0",
-  "description": "npm install",
+  "description": "Projeto-Web-1---MVC\r O arquivo em /.vscode/launch.json é usado no debug do vscode",
   "main": "app.js",
   "dependencies": {
     "accepts": "^1.3.8",
@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.6",
     "cookie-signature": "^1.0.6",
     "core-util-is": "^1.0.3",
+    "date-and-time": "^3.0.0",
     "debug": "^2.6.9",
     "denque": "^2.1.0",
     "depd": "^2.0.0",

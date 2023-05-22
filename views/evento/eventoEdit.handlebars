@@ -1,0 +1,16 @@
+<h3>Editar Evento {{eventos.nome}}</h3>
+<br>
+<form class="bg-dark text-white" action="/eventoEdit" method="post">
+    <input type="hidden" name="id" value="{{eventos._id}}">
+    <div class='input-group date col-4'>
+        <label for="date" class="col-sm-7 col-form-label">Data do Término: {{dataTermino}}</label>
+        <input type="date" 
+               class="form-control bg-dark text-white col-auto" 
+               id="campoDataFim" 
+               name="data_fim" 
+               value="{{eventos.data_fim}}" 
+               required >
+    </div>
+    <br>
+    <button type="submit" class="btn btn-secondary">Salvar</button> 
+</form>

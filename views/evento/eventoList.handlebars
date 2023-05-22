@@ -1,0 +1,26 @@
+<h2>Lista de Eventos</h2>
+<div class="table-responsive"></div>
+    <table class="table table-sm bg-dark text-white text-start col-8">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Descrição</th>
+                <th data-type="date">Início</th>
+                <th data-type="date">Término</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each eventos}}
+        <tr>
+            <th scope="row">{{nome}}</th>
+            <td>{{descricao}}</td>
+            <td>{{data_inicio_exibicao}}</td>
+            <td>{{data_fim_exibicao}}</td>
+            <td><a href="eventoEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
+            <td><a href="eventoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+        {{/each}}
+        </tbody>
+    </table>
+    <br>
+    <br>
+</div>

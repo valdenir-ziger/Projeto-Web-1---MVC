@@ -40,26 +40,26 @@ route.get("/usuarioDelete/:id", controllerUsuario.getDelete);
 //Controller Apresentacao
 //Apresentacao-CRUD
 route.get("/apresentacaoCreate"    , controllerApresentacao.getCreate);
-route.post("/apresentacaoCreate"   , upload.single('imagem'),controllerApresentacao.postCreate);
+route.post("/apresentacaoCreate"   , controllerApresentacao.postCreate);
 route.get("/apresentacaoList"      , controllerApresentacao.getList);
 route.get("/apresentacaoEdit/:id"  , controllerApresentacao.getEdit);
-route.post("/apresentacaoEdit"     , upload.single('imagem'),controllerApresentacao.postEdit);
+route.post("/apresentacaoEdit"     , controllerApresentacao.postEdit);
 route.get("/apresentacaoDelete/:id", controllerApresentacao.getDelete);
 
 //Controller Evento
 //Evento-CRUD
 route.get("/eventoCreate"    , controllerEvento.getCreate);
-route.post("/eventoCreate"   , upload.single('imagem'),controllerEvento.postCreate);
+route.post("/eventoCreate"   , controllerEvento.postCreate);
 route.get("/eventoList"      , controllerEvento.getList);
 route.get("/eventoEdit/:id"  , controllerEvento.getEdit);
-route.post("/eventoEdit"     , upload.single('imagem'),controllerEvento.postEdit);
+route.post("/eventoEdit"     , controllerEvento.postEdit);
 route.get("/eventoDelete/:id", controllerEvento.getDelete);
 
 //Controller Votacao
 //Votacao-CRUD
 route.get("/votacaoCreate"    , controllerVotacao.getCreate);
-route.post("/votacaoCreate"   , upload.single('imagem'),controllerVotacao.postCreate);
+route.post("/votacaoCreate"   , controllerVotacao.postCreate);
 route.get("/votacaoList"      , controllerVotacao.getList);
 route.get("/votacaoEdit/:id"  , controllerVotacao.getEdit);
-route.post("/votacaoEdit"     , upload.single('imagem'),controllerVotacao.postEdit);
+route.post("/votacaoEdit"     , controllerVotacao.postEdit);
 route.get("/votacaoDelete/:id", controllerVotacao.getDelete);

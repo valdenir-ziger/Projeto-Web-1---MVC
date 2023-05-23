@@ -1,4 +1,5 @@
-const Evento = require('../models/models_nosql/evento');
+const Evento        = require('../models/models_nosql/evento');
+const Apresentacao  = require('../models/models_nosql/apresentacao');
 const moment = require('moment');
 
 module.exports = {

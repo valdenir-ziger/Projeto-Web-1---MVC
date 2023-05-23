@@ -6,7 +6,9 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            Evento.find().then((eventos) => {
+            let currentDate = new Date();
+            let dataLimite  = new Date('3000-01-01T00:00:00Z');
+            Evento.find({excluido: false}).where('data_fim').gt(currentDate).lt(dataLimite).then((eventos) => {
                 res.render('apresentacao/apresentacaoCreate', {eventos: eventos.map(eventos => eventos.toJSON())});
             });
         }
@@ -15,7 +17,7 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            var {id_evento, descricao_evento, matricula, musica, participante1, participante2, participante3, participante4, participante5, participante6} = req.body;
+            var {id_evento, descricao_evento, matricula, musica, participante1, participante2, participante3, participante4, participante5, participante6, data_encerramento} = req.body;
             
             matricula = req.session.login;
 
@@ -41,6 +43,7 @@ module.exports = {
 
             await Evento.findOne({ _id: id_evento}).then((eventos) => {
                 descricao_evento = eventos.nome; 
+                data_encerramento = eventos.data_fim;
             });
             
             const apresentacao = new Apresentacao({id_evento, 
@@ -52,7 +55,8 @@ module.exports = {
                                                    participante3, 
                                                    participante4, 
                                                    participante5,
-                                                   participante6});
+                                                   participante6,
+                                                   data_encerramento});
             await apresentacao.save().catch((err) => {
                 console.log(err); 
             });
@@ -89,7 +93,7 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            var {musica, participante1, participante2, participante3, participante4, participante5, participante6, excluido} = req.body;
+            var {id_evento, musica, participante1, participante2, participante3, participante4, participante5, participante6, data_encerramento, excluido} = req.body;
             excluido = false;
             if (participante2 == '') {
                 participante2 = undefined;
@@ -111,8 +115,12 @@ module.exports = {
                 participante6 = undefined;
             }
 
+            Evento.findOne({ _id: id_evento }).then((eventos) => {
+                data_encerramento = eventos.data_fim;
+            });
+
             await Apresentacao.findOneAndUpdate({_id:req.body.id}, 
-                                                {musica, participante1, participante2, participante3, participante4, participante5, participante6, excluido});
+                                                {id_evento, musica, participante1, participante2, participante3, participante4, participante5, participante6, data_encerramento, excluido});
             res.redirect('/apresentacaoList');
         }
     },

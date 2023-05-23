@@ -20,50 +20,47 @@ const Apresentacao = Schema({
     },
     musica : {
         type: String, 
-        lowercase: true, 
         trim: true, 
         required: true 
     },
     participante1: { 
         type: String,
-        lowercase: true, 
         trim: true,  
         required: false 
     },
 	participante2: { 
         type: String, 
-        lowercase: true, 
         trim: true, 
         required: false,
         default: undefined
     },
 	participante3: { 
         type: String, 
-        lowercase: true, 
         trim: true, 
         required: false,
         default: undefined 
     },
     participante4: {
         type: String,
-        lowercase: true, 
         trim: true,  
         required: false,
         default: undefined 
     },
     participante5: { 
         type: String,
-        lowercase: true, 
         trim: true,  
         required:false,
         default: undefined
     },
     participante6: { 
         type: String,
-        lowercase: true, 
         trim: true,  
         required:false,
         default: undefined
+    },
+	data_encerramento: { 
+        type: Date,
+        required: true 
     },
     excluido: { 
         type: Boolean,

@@ -2,19 +2,23 @@ const mongoose   = require('mongoose');
 const Schema     = mongoose.Schema;
 
 const Votacao = Schema({
-    id: {
-        type:Schema.Types.ObjectId, 
-        default: new mongoose.mongo.ObjectId()
-    },
-    evento: {
+    id_evento: {
         type: Schema.Types.ObjectId, 
         required: true 
     },
-    apresentacao: {
+    descricao_evento: {
+        type: String, 
+        required: true 
+    },
+    id_apresentacao: {
         type: Schema.Types.ObjectId, 
         required: true 
     },
-    votante: {// login ou numero da matricula 
+    descricao_apresentacao: {
+        type: String, 
+        required: true 
+    },
+    matricula: {
         type: String, 
         lowercase: true, 
         trim: true,
@@ -26,7 +30,7 @@ const Votacao = Schema({
         max: 10, 
         required: true 
     },
-	datavoto: { 
+	data_voto: { 
         type: Date,
         default: Date.now, 
         required: true 

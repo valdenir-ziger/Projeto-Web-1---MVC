@@ -1,8 +1,7 @@
 <h3>Editar Apresentação do Evento {{apresentacao.descricao_evento}}</h3>
 <br>
 <form class="bg-dark text-white" action="/apresentacaoEdit" method="post">
-    <input type="hidden" name="id"        value="{{apresentacao._id}}">
-    <input type="hidden" name="id_evento" value="{{apresentacao.id_evento}}">
+    <input type="hidden" name="id" value="{{apresentacao._id}}">
     <div class="form-group col-3">
         <label for="campoMusica">Música</label>
         <input type="text" class="form-control" id="campoMusica" name="musica" value="{{apresentacao.musica}}" required>

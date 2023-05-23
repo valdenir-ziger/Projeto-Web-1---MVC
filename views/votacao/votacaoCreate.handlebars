@@ -1,0 +1,25 @@
+<h2>Realize Seu Voto {{user}}</h2>
+<form class="bg-dark text-white" action="/votacaoCreate" method="post">
+    <br>
+    {{#each apresentacao}}
+        <div class="form-check bg-dark text-white text-sm-left col-md-6">
+            <input class="form-check-input" type="radio" name="id_apresentacao" id="campoEvento" value={{_id}} required>
+            <label class="form-check-label " for="campoEvento">Evento: {{descricao_evento}} | Música: {{musica}} | Representante: {{participante1}} </label>
+        </div>
+    {{/each}}
+    <br>
+    <div class="input-group input-group-sm col-1">
+        <input type="number" 
+               class="form-control bg-dark text-white" 
+               placeholder="Nota" 
+               id="campoVoto" 
+               name="voto" 
+               min="0" max="10" 
+               required>
+    </div>
+    <small id="campoVotoHelp" class="form-text text-muted">Notas de 0 a 10</small>
+    <br>
+    <button type="submit" class="btn btn-secondary">Salvar</button>
+    <br><br>
+</form>
+

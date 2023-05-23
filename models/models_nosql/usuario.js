@@ -24,9 +24,8 @@ const Usuario = Schema({
     },
     nome: { 
         type: String,
-        lowercase: true, 
         trim: true, 
-        default: "sem nome",
+        default: "Sem Nome",
         required: true 
     },
 	tipo: { // 0 - Administrador, 1 - Ouvinte/Votante, 2 - Candidato

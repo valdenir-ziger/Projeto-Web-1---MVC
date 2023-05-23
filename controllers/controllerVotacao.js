@@ -1,15 +1,30 @@
-const Votacao = require('../models/models_nosql/votacao');
+const Votacao       = require('../models/models_nosql/votacao');
+const Apresentacao  = require('../models/models_nosql/apresentacao');
 
 module.exports = {
     async getCreate(req, res) {
-        res.render('votacao/votacaoCreate');
+        if(req.session.login == undefined){
+            res.redirect('usuario/login');
+        }else{
+            let currentDate = new Date();
+            let dataLimite  = new Date('3000-01-01T00:00:00Z');
+            Apresentacao.find({excluido: false}).where('data_encerramento').gt(currentDate).lt(dataLimite).then((apresentacao) => {
+                if (apresentacao.length > 0) {
+                    res.render('votacao/votacaoCreate', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
+                }
+                else {
+                    res.redirect('/home');
+                }
+            });
+        }
     },
     async postCreate(req, res) {
-        const {nome, ingredientes, preparo} = req.body;
-        const imagem = req.imageName;
-        console.log(imagem);
-        const votacao = new Votacao({nome, ingredientes, preparo, imagem});
-        await votacao.save();
+        const {id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto}  = req.body;
+        const votacao = new Votacao({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto});
+
+        await votacao.save().catch((err) => {
+            console.log(err); 
+        });
         res.redirect('/home');
     },
     async getList(req, res) {
@@ -19,7 +34,7 @@ module.exports = {
             });
         }
         else{
-            Votacao.find({excluido: false}).then((votacao) => {
+            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
                 res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
             });
         }
@@ -30,10 +45,8 @@ module.exports = {
         });
     },
     async postEdit(req, res) {
-        const {nome, ingredientes, preparo} = req.body;
-        const imagem = req.imageName;
-        console.log(imagem);
-        await Votacao.findOneAndUpdate({_id:req.body.id}, {nome, ingredientes, preparo,imagem});
+        const {nota, data_voto} = req.body;
+        await Votacao.findOneAndUpdate({_id:req.body.id}, {nota, data_voto});
         res.redirect('/votacaoList');
     },
     async getDelete(req, res) {

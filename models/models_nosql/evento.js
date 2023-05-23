@@ -30,6 +30,11 @@ const Evento = Schema({
 	data_fim_exibicao: { 
         type: String,
         required: false 
+    },
+    excluido: { 
+        type: Boolean,
+        required:true,
+        default: false
     }
 });
 

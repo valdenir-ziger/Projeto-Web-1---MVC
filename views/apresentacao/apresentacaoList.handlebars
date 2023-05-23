@@ -5,6 +5,7 @@
             <tr>
                 <th scope="col">Evento</th>
                 <th scope="col">Música</th>
+                <th scope="col">Matrícula</th>
                 <th scope="col">Partic. 1</th>
                 <th scope="col">Partic. 2</th>
                 <th scope="col">Partic. 3</th>
@@ -18,6 +19,7 @@
         <tr>
             <th scope="row">{{descricao_evento}}</th>
             <td>{{musica}}</td>
+            <td>{{matricula}}</td>
             <td>{{participante1}}</td>
             <td>{{participante2}}</td>
             <td>{{participante3}}</td>
@@ -25,7 +27,11 @@
             <td>{{participante5}}</td>
             <td>{{participante6}}</td>
             <td><a href="apresentacaoEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
-            <td><a href="apresentacaoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{#if excluido}}
+                <td><a href="apresentacaoDelete/{{_id}}"> <button class="btn btn-outline-danger btn-sm" disabled>Desativado</button> </a></td>
+            {{else}}
+                <td><a href="apresentacaoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{/if}}
         {{/each}}
         </tbody>
     </table>

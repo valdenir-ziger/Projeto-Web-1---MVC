@@ -69,7 +69,7 @@ module.exports = {
                 });
             }
             else{
-                Apresentacao.find({ matricula: req.session.login }).then((apresentacao) => {
+                Apresentacao.find({ matricula: req.session.login, excluido: false }).then((apresentacao) => {
                     res.render('apresentacao/apresentacaoList', {apresentacao: apresentacao.map(apresentacao => apresentacao.toJSON())});
                 });
             }
@@ -89,8 +89,8 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            var {musica, participante1, participante2, participante3, participante4, participante5, participante6} = req.body;
-            
+            var {musica, participante1, participante2, participante3, participante4, participante5, participante6, excluido} = req.body;
+            excluido = false;
             if (participante2 == '') {
                 participante2 = undefined;
             }
@@ -112,7 +112,7 @@ module.exports = {
             }
 
             await Apresentacao.findOneAndUpdate({_id:req.body.id}, 
-                                                {musica, participante1, participante2, participante3, participante4, participante5, participante6});
+                                                {musica, participante1, participante2, participante3, participante4, participante5, participante6, excluido});
             res.redirect('/apresentacaoList');
         }
     },
@@ -120,7 +120,9 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            await Apresentacao.findOneAndRemove({ _id: req.params.id });
+            //await Apresentacao.findOneAndRemove({ _id: req.params.id });
+            var excluido = true;
+            await Apresentacao.findOneAndUpdate({ _id: req.params.id }, {excluido});
             res.redirect('/apresentacaoList');
         }
     }

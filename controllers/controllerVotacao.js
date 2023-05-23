@@ -13,9 +13,16 @@ module.exports = {
         res.redirect('/home');
     },
     async getList(req, res) {
-        Votacao.find().then((votacao) => {
-            res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
-        });
+        if (req.session.tipo == 0){//administrador
+            Votacao.find().then((votacao) => {
+                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
+        else{
+            Votacao.find({excluido: false}).then((votacao) => {
+                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
     },
     async getEdit(req, res) {
         await Votacao.findOne({ _id: req.params.id }).then((votacao) => {
@@ -30,7 +37,9 @@ module.exports = {
         res.redirect('/votacaoList');
     },
     async getDelete(req, res) {
-        await Votacao.findOneAndRemove({ _id: req.params.id });
+        //await Votacao.findOneAndRemove({ _id: req.params.id });
+        var excluido = true;
+        await Votacao.findOneAndUpdate({ _id: req.params.id }, {excluido});
         res.redirect('/votacaoList');
     }
 }

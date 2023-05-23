@@ -18,9 +18,16 @@ module.exports = {
         res.redirect('/home');
     },
     async getList(req, res) {
-        Evento.find().then((eventos) => {
-            res.render('evento/eventoList', {eventos: eventos.map(eventos => eventos.toJSON())});
-        });
+        if (req.session.tipo == 0){//administrador
+            Evento.find().then((eventos) => {
+                res.render('evento/eventoList', {eventos: eventos.map(eventos => eventos.toJSON())});
+            });
+        }
+        else{
+            Evento.find({excluido: false}).then((eventos) => {
+                res.render('evento/eventoList', {eventos: eventos.map(eventos => eventos.toJSON())});
+            });
+        }
     },
     async getEdit(req, res) {
         await Evento.findOne({ _id: req.params.id}).then((eventos) => {
@@ -29,13 +36,16 @@ module.exports = {
         });
     },
     async postEdit(req, res) {
-        var {data_fim, data_fim_exibicao} = req.body;
+        var {data_fim, data_fim_exibicao, excluido} = req.body;
         data_fim_exibicao = moment(data_fim).format('DD/MM/YYYY');
-        await Evento.findOneAndUpdate({_id:req.body.id}, {data_fim, data_fim_exibicao});
+        excluido          = false;
+        await Evento.findOneAndUpdate({_id:req.body.id}, {data_fim, data_fim_exibicao, excluido});
         res.redirect('/eventoList');
     },
     async getDelete(req, res) {
-        await Evento.findOneAndRemove({ _id: req.params.id});
+        //await Evento.findOneAndRemove({ _id: req.params.id});
+        var excluido = true;
+        await Evento.findOneAndUpdate({ _id: req.params.id }, {excluido});
         res.redirect('/eventoList');
     }
 }

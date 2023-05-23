@@ -64,6 +64,11 @@ const Apresentacao = Schema({
         trim: true,  
         required:false,
         default: undefined
+    },
+    excluido: { 
+        type: Boolean,
+        required:true,
+        default: false
     }
 });
 

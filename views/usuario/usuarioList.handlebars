@@ -21,7 +21,11 @@
             <td>{{resposta_pergunta}}</td>
             <td>{{tipo_descricao}}</td>
             <td><a href="usuarioEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
-            <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{#if excluido}}
+                <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-outline-danger btn-sm" disabled>Desativado</button> </a></td>
+            {{else}}
+                <td><a href="usuarioDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{/if}}
         {{/each}}
         </tbody>
     </table>

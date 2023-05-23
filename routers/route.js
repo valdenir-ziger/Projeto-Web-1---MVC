@@ -1,6 +1,5 @@
 const express                = require('express');
 const controllerUsuario      = require('../controllers/controllerUsuario');
-const controllerReceita      = require('../controllers/controllerReceita');
 const controllerVotacao      = require('../controllers/controllerVotacao');
 const controllerEvento       = require('../controllers/controllerEvento');
 const controllerApresentacao = require('../controllers/controllerApresentacao');
@@ -37,15 +36,6 @@ route.get("/usuarioList"      , controllerUsuario.getList);
 route.get("/usuarioEdit/:id"  , controllerUsuario.getEdit);
 route.post("/usuarioEdit"     , controllerUsuario.postEdit);
 route.get("/usuarioDelete/:id", controllerUsuario.getDelete);
-
-//Controller Receita
-//Receita-CRUD
-route.get("/receitaCreate"    , controllerReceita.getCreate);
-route.post("/receitaCreate"   , upload.single('imagem'),controllerReceita.postCreate);
-route.get("/receitaList"      , controllerReceita.getList);
-route.get("/receitaEdit/:id"  , controllerReceita.getEdit);
-route.post("/receitaEdit"     , upload.single('imagem'),controllerReceita.postEdit);
-route.get("/receitaDelete/:id", controllerReceita.getDelete);
 
 //Controller Apresentacao
 //Apresentacao-CRUD

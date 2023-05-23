@@ -40,6 +40,11 @@ const Usuario = Schema({
         trim: true, 
         default: "Ouvinte/Votante",
         required: true 
+    },
+    excluido: { 
+        type: Boolean,
+        required:true,
+        default: false
     }
 });
 

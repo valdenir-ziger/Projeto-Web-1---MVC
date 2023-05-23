@@ -16,7 +16,19 @@
                 <label for="campoResposta">Resposta</label>
                 <input type="text" class="form-control" name="resposta">
             </div>
-            <input type="submit" value="Recuperar Senha">
+             {{#if excluido}}
+                <script> 
+                    function voltar() { 
+                        window.location.href = "/"
+                    }
+                </script>
+                <button onclick=voltar() class="btn btn-secondary btn-sm">Voltar para tela de login</button>
+                <br><br>
+                <div class="alert alert-danger col-2" role="alert">login desativado</div>
+            {{else}}
+                <button type="submit" class="btn btn-secondary btn-sm">Recuperar Senha</button>
+            {{/if}}
+            
         </form>
         <br>
     </body>

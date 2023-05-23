@@ -17,7 +17,11 @@
             <td>{{data_inicio_exibicao}}</td>
             <td>{{data_fim_exibicao}}</td>
             <td><a href="eventoEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
-            <td><a href="eventoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{#if excluido}}
+                <td><a href="eventoDelete/{{_id}}"> <button class="btn btn-outline-danger btn-sm" disabled>Desativado</button> </a></td>
+            {{else}}
+                <td><a href="eventoDelete/{{_id}}"> <button class="btn btn-secondary btn-sm">Deletar</button> </a></td>
+            {{/if}}
         {{/each}}
         </tbody>
     </table>

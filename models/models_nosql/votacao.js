@@ -30,6 +30,11 @@ const Votacao = Schema({
         type: Date,
         default: Date.now, 
         required: true 
+    },
+    excluido: { 
+        type: Boolean,
+        required:true,
+        default: false
     }
 });
 

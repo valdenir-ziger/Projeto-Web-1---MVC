@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(middlewares.logRegister,middlewares.sessionControl)
 app.use(routes);
 
+mongoose.set('strictQuery', true);
 mongoose.connect(db_mongoose.connection, {useUnifiedTopology:true, useNewUrlParser:true}).then(()=>{
     console.log('Conectado em: mongodb+srv://valdenir:1234@clusterutfpr.2k7tc1v.mongodb.net/');
 }).catch((error) =>{

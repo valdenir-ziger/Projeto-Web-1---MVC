@@ -1,35 +1,19 @@
-<h3>Editar Apresentação do Evento {{apresentacao.descricao_evento}}</h3>
+<h3>Editar o Voto do Matrícula/Login: {{votacao.matricula}}</h3>
 <br>
-<form class="bg-dark text-white" action="/apresentacaoEdit" method="post">
-    <input type="hidden" name="id" value="{{apresentacao._id}}">
-    <div class="form-group col-3">
-        <label for="campoMusica">Música</label>
-        <input type="text" class="form-control" id="campoMusica" name="musica" value="{{apresentacao.musica}}" required>
+<form class="bg-dark text-white" action="/votacaoEdit" method="post">
+    <input type="hidden" name="id" value="{{votacao._id}}">
+    <div class="input-group input-group-sm col-1">
+        <input type="number" 
+               class="form-control bg-dark text-white" 
+               placeholder="Nota" 
+               id="campoVoto" 
+               name="nota" 
+               min="0" max="10" 
+               value="{{votacao.nota}}"
+               required>
     </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante1">Participante 1</label>
-        <input type="text" class="form-control" id="campoParticipante1" name="participante1" value="{{apresentacao.participante1}}" required>
-    </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante2">Participante 2</label>
-        <input type="text" class="form-control" id="campoParticipante2" name="participante2" value="{{apresentacao.participante2}}">
-    </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante3">Participante 3</label>
-        <input type="text" class="form-control" id="campoParticipante3" name="participante3" value="{{apresentacao.participante3}}">
-    </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante4">Participante 4</label>
-        <input type="text" class="form-control" id="campoParticipante4" name="participante4" value="{{apresentacao.participante4}}">
-    </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante5">Participante 5</label>
-        <input type="text" class="form-control" id="campoParticipante5" name="participante5" value="{{apresentacao.participante5}}">
-    </div>
-    <div class="form-group col-3">
-        <label for="campoParticipante6">Participante 6</label>
-        <input type="text" class="form-control" id="campoParticipante6" name="participante6" value="{{apresentacao.participante6}}">
-    </div>
+    <small id="campoVotoHelp" class="form-text text-muted">Notas de 0 a 10</small>
+    <br>
     <button type="submit" class="btn btn-secondary">Salvar</button> 
     <br><br>
 </form>

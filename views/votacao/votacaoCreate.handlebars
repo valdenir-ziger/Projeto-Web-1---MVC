@@ -3,7 +3,11 @@
     <br>
     {{#each apresentacao}}
         <div class="form-check bg-dark text-white text-sm-left col-md-6">
-            <input class="form-check-input" type="radio" name="id_apresentacao" id="campoEvento" value={{_id}} required>
+            <input class="form-check-input" 
+                   type="radio" 
+                   onclick="handleClick(this);" 
+                   name="id_apresentacao"
+                   id="campoEvento" value={{_id}} required>
             <label class="form-check-label " for="campoEvento">Evento: {{descricao_evento}} | Música: {{musica}} | Representante: {{participante1}} </label>
         </div>
     {{/each}}
@@ -13,7 +17,7 @@
                class="form-control bg-dark text-white" 
                placeholder="Nota" 
                id="campoVoto" 
-               name="voto" 
+               name="nota" 
                min="0" max="10" 
                required>
     </div>

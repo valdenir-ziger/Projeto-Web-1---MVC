@@ -19,22 +19,33 @@ module.exports = {
         }
     },
     async postCreate(req, res) {
-        const {id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto}  = req.body;
-        const votacao = new Votacao({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto});
+        if(req.session.login == undefined){
+            res.redirect('usuario/login');
+        }else{
+            var {id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto}  = req.body;
+            await Apresentacao.findOne({ _id: id_apresentacao}).then((apresentacao) => {
+                id_evento  = apresentacao.id_evento;
+                descricao_evento  = apresentacao.descricao_evento;
+                descricao_apresentacao = apresentacao.musica;
+            });
 
-        await votacao.save().catch((err) => {
-            console.log(err); 
-        });
-        res.redirect('/home');
+            data_voto = new Date();
+            matricula = req.session.login;
+            const votacao = new Votacao({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, matricula, nota, data_voto});
+            await votacao.save().catch((err) => {
+                console.log(err); 
+            });
+            res.redirect('/home');
+        }
     },
     async getList(req, res) {
         if (req.session.tipo == 0){//administrador
             Votacao.find().then((votacao) => {
-                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+                res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
             });
         }
         else{
-            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
+            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {       
                 res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
             });
         }
@@ -45,14 +56,24 @@ module.exports = {
         });
     },
     async postEdit(req, res) {
-        const {nota, data_voto} = req.body;
+        var {nota, data_voto} = req.body;
+        data_voto = new Date();
         await Votacao.findOneAndUpdate({_id:req.body.id}, {nota, data_voto});
-        res.redirect('/votacaoList');
+        Votacao.find().then((votacao) => {
+            res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+        });
     },
     async getDelete(req, res) {
         //await Votacao.findOneAndRemove({ _id: req.params.id });
         var excluido = true;
         await Votacao.findOneAndUpdate({ _id: req.params.id }, {excluido});
-        res.redirect('/votacaoList');
+        Votacao.find().then((votacao) => {
+            res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+        });
+    },
+    async getListRanking(req, res) {
+        Votacao.find().then((votacao) => {
+            res.render('votacao/votacaoRanking', {votacao: votacao.map(votacao => votacao.toJSON())});
+        });
     }
 }

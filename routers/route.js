@@ -60,6 +60,8 @@ route.get("/eventoDelete/:id", controllerEvento.getDelete);
 route.get("/votacaoCreate"    , controllerVotacao.getCreate);
 route.post("/votacaoCreate"   , controllerVotacao.postCreate);
 route.get("/votacaoList"      , controllerVotacao.getList);
+route.get("/votacaoListAdmin" , controllerVotacao.getList);
+route.get("/votacaoRanking"   , controllerVotacao.getListRanking);
 route.get("/votacaoEdit/:id"  , controllerVotacao.getEdit);
 route.post("/votacaoEdit"     , controllerVotacao.postEdit);
 route.get("/votacaoDelete/:id", controllerVotacao.getDelete);

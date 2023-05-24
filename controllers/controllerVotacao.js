@@ -1,5 +1,6 @@
 const Votacao       = require('../models/models_nosql/votacao');
 const Apresentacao  = require('../models/models_nosql/apresentacao');
+const Ranking       = require('../models/models_nosql/ranking');
 
 module.exports = {
     async getCreate(req, res) {
@@ -45,7 +46,7 @@ module.exports = {
             });
         }
         else{
-            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {       
+            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
                 res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
             });
         }
@@ -56,24 +57,86 @@ module.exports = {
         });
     },
     async postEdit(req, res) {
-        var {nota, data_voto} = req.body;
+        var {nota, data_voto, excluido} = req.body;
         data_voto = new Date();
-        await Votacao.findOneAndUpdate({_id:req.body.id}, {nota, data_voto});
-        Votacao.find().then((votacao) => {
-            res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
-        });
+        excluido  = false;
+        await Votacao.findOneAndUpdate({_id:req.body.id}, {nota, data_voto, excluido});
+        if (req.session.tipo == 0){//administrador
+            Votacao.find().then((votacao) => {
+                res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
+        else{
+            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
+                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
     },
     async getDelete(req, res) {
         //await Votacao.findOneAndRemove({ _id: req.params.id });
         var excluido = true;
         await Votacao.findOneAndUpdate({ _id: req.params.id }, {excluido});
-        Votacao.find().then((votacao) => {
-            res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
-        });
+        if (req.session.tipo == 0){//administrador
+            Votacao.find().then((votacao) => {
+                res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
+        else{
+            Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
+                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+            });
+        }
     },
     async getListRanking(req, res) {
-        Votacao.find().then((votacao) => {
-            res.render('votacao/votacaoRanking', {votacao: votacao.map(votacao => votacao.toJSON())});
+        await Ranking.find().then((rankingAll) => {
+            for (const ranking of rankingAll) {
+                console.log("Ranking id: " + ranking._id);
+                Ranking.findOneAndRemove({ _id: ranking._id }).catch((err) => {
+                    console.log(err); 
+                });
+            }
+        });
+
+        await Ranking.find().then((rankingAll) => {
+            console.log("Quantidade Ranking: " + rankingAll.length);
+        });
+
+        await Votacao.find( {excluido: false} ).then((votacao) => {
+            if (votacao.length > 0){
+                for (const voto of votacao) {
+                    console.log(" Apresentação: " + voto.descricao_apresentacao + 
+                                " id_evento: " + voto.id_evento + 
+                                " id_apresentacap: " + voto.id_apresentacao);
+        
+                    var {id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, nota, votos} = voto;
+                    id_evento       = voto.id_evento.toString();
+                    id_apresentacao = voto.id_apresentacao.toString();
+
+                    var ranking = Ranking.find({ id_evento: id_evento,  
+                                                 id_apresentacao: id_apresentacao});
+                    if(ranking.length > 0){
+                        if (ranking.nota = undefined){
+                            ranking.nota = 0;
+                        }
+                        nota = nota + ranking.nota;
+                        votos = ranking.votos + 1;
+                        Ranking.findOneAndUpdate({ _id: ranking._id }, {nota, votos});
+                    }
+                    else{
+                        votos = 1;
+                        var rankingNew = new Ranking({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, nota, votos});
+                        rankingNew.save().catch((err) => {
+                            console.log(err); 
+                        });    
+                    }
+                }
+            }
+        });
+
+        await Ranking.find().limit(3).sort({ nota : -1 }).then((ranking) => {
+            if (ranking.length > 0) {
+                res.render('votacao/votacaoRanking', {ranking: ranking.map(ranking => ranking.toJSON())});
+            }
         });
     }
 }

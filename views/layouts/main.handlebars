@@ -29,7 +29,11 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/votacaoCreate">Votar</a>
-                        <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
+                        {{#if isAdministrador}} 
+                            <a class="dropdown-item" href="/votacaoListAdmin">Todos Votos Realizados</a>
+                        {{else}}
+                            <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
+                        {{/if}}
                         <a class="dropdown-item" href="/votacaoRanking">Ranking</a>
                     </div>
                 </li>

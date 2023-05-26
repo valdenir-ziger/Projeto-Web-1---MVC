@@ -1,0 +1,22 @@
+<h2>Ranking Top 10 - Mais Votados</h2>
+<div class="table-responsive"></div>
+    <table class="table table-sm bg-dark text-white text-start col-6">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Evento</th>
+                <th scope="col">Apresentação</th>
+                <th scope="col">Classificação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ranking}}
+            <tr>
+                <th scope="row">{{descricao_evento}}</th>
+                <td>{{descricao_apresentacao}}</td>
+                <td>{{votos}} votos</td>
+            {{/each}}
+        </tbody>
+    </table>
+    <br>
+    <a href="/home" class="list-group-item list-group-item-action list-group-item-secondary col-1">Voltar</a>
+</div>

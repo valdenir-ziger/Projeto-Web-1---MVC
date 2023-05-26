@@ -1,4 +1,5 @@
 const Usuario = require('../models/models_nosql/usuario');
+const Ranking = require('../models/models_nosql/ranking');
 
 module.exports = {
     async getLogin(req, res) {
@@ -23,6 +24,7 @@ module.exports = {
                 req.session.tipo            = usuarios.tipo;
                 req.session.tipo_descricao  = usuarios.tipo_descricao;
                 console.log("Usuário " + req.session.login + " acabou de conectar como " + req.session.tipo_descricao + "!"); 
+                
                 res.redirect('/home');
             }
         });

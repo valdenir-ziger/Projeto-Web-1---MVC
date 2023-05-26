@@ -31,10 +31,13 @@
                         <a class="dropdown-item" href="/votacaoCreate">Votar</a>
                         {{#if isAdministrador}} 
                             <a class="dropdown-item" href="/votacaoListAdmin">Todos Votos Realizados</a>
+                            <a class="dropdown-item" href="/votacaoRankingGeral">Ranking Geral</a>
                         {{else}}
                             <a class="dropdown-item" href="/votacaoList">Votos Realizados</a>
+                            
                         {{/if}}
-                        <a class="dropdown-item" href="/votacaoRanking">Ranking</a>
+                        <a class="dropdown-item" href="/votacaoRankingNota">Ranking Maior Nota</a>
+                        <a class="dropdown-item" href="/votacaoRankingVoto">Ranking Mais Votados</a>
                     </div>
                 </li>
                 {{#if isAdministrador}} 

@@ -1,14 +1,18 @@
-<h2>Realize Seu Voto {{user}}</h2>
+<h2>Realize seu voto como {{user}}</h2>
 <form class="bg-dark text-white" action="/votacaoCreate" method="post">
     <br>
+    <div class="alert alert-info col-6" role="alert">
+         {{user}}, você pode votar quantas vezes quiser no seu candidato preferido!
+    </div>
+    <br>
     {{#each apresentacao}}
-        <div class="form-check bg-dark text-white text-sm-left col-md-6">
+        <div class="form-check bg-dark text-white text-sm-left col-md-3">
             <input class="form-check-input" 
                    type="radio" 
                    onclick="handleClick(this);" 
                    name="id_apresentacao"
                    id="campoEvento" value={{_id}} required>
-            <label class="form-check-label " for="campoEvento">Evento: {{descricao_evento}} | Música: {{musica}} | Representante: {{participante1}} </label>
+            <label class="form-check-label" for="campoEvento">Evento: <a class="text font-weight-bold">{{descricao_evento}}</a><br>Música: <a class="text font-weight-bold">{{musica}}</a><br>Representante: <a class="text font-weight-bold">{{participante1}}</a></label>
         </div>
     {{/each}}
     <br>

@@ -36,18 +36,69 @@ module.exports = {
             await votacao.save().catch((err) => {
                 console.log(err); 
             });
-            res.redirect('/home');
+
+            //Processo de atualização da lista exibida no ranking.
+            var novoRanking = true;
+            var id_ranking;
+            var media_final = 0;
+            await Ranking.find().then((ranking) => {
+                if(ranking.length > 0){
+                    for (const atualizarRanking of ranking) {
+                        if(atualizarRanking.id_evento == id_evento && atualizarRanking.id_apresentacao == id_apresentacao){
+                            novoRanking = false; 
+                            if (atualizarRanking.nota == undefined){
+                                atualizarRanking.nota = 0;
+                            }
+                            nota        = (Number(nota) + atualizarRanking.nota);
+                            votos       = (atualizarRanking.votos + 1);
+                            media_final = (nota / votos);
+                            media_final = media_final.toFixed(1);
+                            id_ranking  = atualizarRanking._id;
+                            break;
+                        }
+                    }
+                }
+                else{
+                    novoRanking = true; 
+                }
+            });
+
+            if(novoRanking){
+                votos       = 1;
+                media_final = nota;
+                var rankingNew = new Ranking({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, nota, votos, media_final});
+                await rankingNew.save().catch((err) => {
+                    console.log(err); 
+                });  
+            }
+            else if (id_ranking != undefined){
+                await Ranking.findOneAndUpdate({ _id: id_ranking }, {nota, votos, media_final});
+            }
+
+            //res.redirect('/home');
+            if (req.session.tipo == 0){//administrador
+                Votacao.find().then((votacao) => {
+                    res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+                });
+            }
+            else{
+                Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
+                    res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+                });
+            }
         }
     },
     async getList(req, res) {
         if (req.session.tipo == 0){//administrador
             Votacao.find().then((votacao) => {
-                res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON())});
+                res.render('votacao/votacaoListAdmin', {votacao: votacao.map(votacao => votacao.toJSON()),
+                                                          quantidade: votacao.length});
             });
         }
         else{
             Votacao.find({matricula: req.session.login, excluido: false}).then((votacao) => {
-                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON())});
+                res.render('votacao/votacaoList', {votacao: votacao.map(votacao => votacao.toJSON()),
+                                                   quantidade: votacao.length});
             });
         }
     },
@@ -88,54 +139,24 @@ module.exports = {
         }
     },
     async getListRanking(req, res) {
-        await Ranking.find().then((rankingAll) => {
-            for (const ranking of rankingAll) {
-                console.log("Ranking id: " + ranking._id);
-                Ranking.findOneAndRemove({ _id: ranking._id }).catch((err) => {
-                    console.log(err); 
-                });
-            }
-        });
-
-        await Ranking.find().then((rankingAll) => {
-            console.log("Quantidade Ranking: " + rankingAll.length);
-        });
-
-        await Votacao.find( {excluido: false} ).then((votacao) => {
-            if (votacao.length > 0){
-                for (const voto of votacao) {
-                    console.log(" Apresentação: " + voto.descricao_apresentacao + 
-                                " id_evento: " + voto.id_evento + 
-                                " id_apresentacap: " + voto.id_apresentacao);
-        
-                    var {id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, nota, votos} = voto;
-                    id_evento       = voto.id_evento.toString();
-                    id_apresentacao = voto.id_apresentacao.toString();
-
-                    var ranking = Ranking.find({ id_evento: id_evento,  
-                                                 id_apresentacao: id_apresentacao});
-                    if(ranking.length > 0){
-                        if (ranking.nota = undefined){
-                            ranking.nota = 0;
-                        }
-                        nota = nota + ranking.nota;
-                        votos = ranking.votos + 1;
-                        Ranking.findOneAndUpdate({ _id: ranking._id }, {nota, votos});
-                    }
-                    else{
-                        votos = 1;
-                        var rankingNew = new Ranking({id_evento, descricao_evento, id_apresentacao, descricao_apresentacao, nota, votos});
-                        rankingNew.save().catch((err) => {
-                            console.log(err); 
-                        });    
-                    }
-                }
-            }
-        });
-
-        await Ranking.find().limit(3).sort({ nota : -1 }).then((ranking) => {
+        Ranking.find().sort({ media_final : -1, votos : -1}).then((ranking) => {
             if (ranking.length > 0) {
-                res.render('votacao/votacaoRanking', {ranking: ranking.map(ranking => ranking.toJSON())});
+                res.render('votacao/votacaoRankingGeral', { ranking: ranking.map(ranking => ranking.toJSON()),
+                                                            quantidade: ranking.length} );
+            }
+        });
+    },
+    async getListRankingTop10PorNota(req, res) {
+        Ranking.find().limit(10).sort({ media_final : -1,  votos : -1}).then((ranking) => {
+            if (ranking.length > 0) {
+                res.render('votacao/votacaoRankingNota', {ranking: ranking.map(ranking => ranking.toJSON())});
+            }
+        });
+    },
+    async getListRankingTop10PorQuantidade(req, res) {
+        Ranking.find().limit(10).sort({ votos : -1, media_final : -1}).then((ranking) => {
+            if (ranking.length > 0) {
+                res.render('votacao/votacaoRankingVoto', {ranking: ranking.map(ranking => ranking.toJSON())});
             }
         });
     }

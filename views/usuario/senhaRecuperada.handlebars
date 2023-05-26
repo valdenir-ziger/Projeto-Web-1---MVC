@@ -1,9 +1,5 @@
 <div class="form-group col-3">
-    <label for="campoLogin">Senha Atual: {{senha}}</label>
+    <label for="campoLogin">Senha Atual</label>
 </div>
-<script> 
-    function voltar() { 
-        window.location.href = "/"
-    }
-</script>
-<button onclick=voltar() class="btn btn-secondary">Voltar para tela de login</button>
+<div class="alert alert-success col-3" role="alert">{{senha}}</div>
+<a href="/" class="list-group-item list-group-item-action list-group-item-secondary col-1">Voltar</a>

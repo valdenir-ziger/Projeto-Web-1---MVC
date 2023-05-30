@@ -10,18 +10,6 @@ const Usuario = Schema({
         type: String, 
         required: true 
     },
-    pergunta_secreta: {
-        type: String, 
-        lowercase: true, 
-        trim: true,
-        required: true 
-    },
-    resposta_pergunta: { 
-        type: String,
-        lowercase: true, 
-        trim: true, 
-        required:true
-    },
     nome: { 
         type: String,
         trim: true, 

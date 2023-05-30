@@ -23,18 +23,6 @@
     </script>
     <br>
     <button onclick=cadastrar() class="btn btn-secondary">Cadastrar</button>
-    <script> 
-        function recuperarSenha() { 
-            if(document.getElementById("campoLogin").value.length == 0){
-                alert("Campo 'Matrícula' é obrigatório!");
-                document.getElementById("campoLogin").focus();
-            }
-            else{
-                window.location.href = "/recuperarSenha/" + document.getElementById("campoLogin").value;
-            }
-        }
-    </script>
-    <button onclick=recuperarSenha() class="btn btn-secondary">Recuperar Senha</button>
 </body>
 
 </html>

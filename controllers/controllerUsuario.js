@@ -33,38 +33,12 @@ module.exports = {
             res.redirect('usuario/login');
         }
     },
-    async getRecuperarSenha(req, res) {
-        await Usuario.find({login: req.params.login}).then((usuarios) => {
-            res.render('usuario/recuperarSenha', {
-                    //layout: 'noMenu.handlebars',
-                    id      : usuarios[0]._id, 
-                    login   : req.params.login, 
-                    pergunta: usuarios[0].pergunta_secreta,
-                    excluido: usuarios[0].excluido
-                }); 
-        });
-    },
-    async postRecuperarSenha(req, res) {
-        Usuario.find({login:             req.body.login, 
-                      pergunta_secreta:  req.body.pergunta,
-                      resposta_pergunta: req.body.resposta}).then(usuarios => {
-            if (usuarios.length > 0) {
-                res.render('usuario/senhaRecuperada', { 
-                    //layout: 'noMenu.handlebars', 
-                    senha: usuarios[0].senha });
-            }
-            else {
-                res.redirect('/home');
-            }
-        });
-    },
     async getCreate(req, res) {
-        //res.render('usuario/usuarioCreate', { layout: 'noMenu.handlebars'});
         res.render('usuario/usuarioCreate');
     },
     async postCreate(req, res) {
-        const {nome, login, senha, pergunta_secreta, resposta_pergunta, tipo} = req.body;
-        const usuario = new Usuario({nome, login, senha, pergunta_secreta, resposta_pergunta, tipo});
+        const {nome, login, senha, tipo} = req.body;
+        const usuario = new Usuario({nome, login, senha, tipo});
         if (tipo == 0){
             usuario.tipo_descricao = "Administrador";
         }
@@ -112,7 +86,7 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            var {nome, senha, pergunta_secreta, resposta_pergunta, tipo, tipo_descricao, excluido} = req.body;
+            var {nome, senha, tipo, tipo_descricao, excluido} = req.body;
             excluido = false;
             if (tipo.length > 1){
                 //tipo = tipo[0];//Como tava Antes de Alterar
@@ -129,7 +103,7 @@ module.exports = {
                 tipo_descricao = "Candidato";
             }
 
-            await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, pergunta_secreta, resposta_pergunta, tipo, tipo_descricao, excluido});
+            await Usuario.findOneAndUpdate({_id:req.body.id}, {nome, senha, tipo, tipo_descricao, excluido});
             res.redirect('/usuarioList');
         }
     },
@@ -137,7 +111,6 @@ module.exports = {
         if(req.session.login == undefined){
             res.redirect('usuario/login');
         }else{
-            //await Usuario.findOneAndRemove({ _id: req.params.id });
             var excluido = true;
             await Usuario.findOneAndUpdate({ _id: req.params.id }, {excluido});
             res.redirect('/usuarioList');

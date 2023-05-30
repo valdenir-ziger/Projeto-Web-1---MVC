@@ -6,8 +6,6 @@
                 <th scope="col">Matrícula/Login</th>
                 <th scope="col">Senha</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Pergunta</th>
-                <th scope="col">Resposta</th>
                 <th scope="col">Tipo</th>
             </tr>
         </thead>
@@ -17,8 +15,6 @@
             <th scope="row">{{login}}</th>
             <td>{{senha}}</td>
             <td>{{nome}}</td>
-            <td>{{pergunta_secreta}}</td>
-            <td>{{resposta_pergunta}}</td>
             <td>{{tipo_descricao}}</td>
             <td><a href="usuarioEdit/{{_id}}"> <button class="btn btn-secondary btn-sm">Editar</button> </a></td>
             {{#if excluido}}

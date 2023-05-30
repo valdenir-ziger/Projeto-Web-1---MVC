@@ -27,8 +27,6 @@ route.get("/logout", controllerUsuario.getLogout);
 //Usuario - Login e Recuperação de Senha
 route.get("/"                     , controllerUsuario.getLogin);
 route.post("/login"               , controllerUsuario.postLogin);
-route.get("/recuperarSenha/:login", controllerUsuario.getRecuperarSenha);
-route.post("/recuperarSenha"      , controllerUsuario.postRecuperarSenha);
 //Usuario - CRUD
 route.get("/usuarioCreate"    , controllerUsuario.getCreate);
 route.post("/usuarioCreate"   , controllerUsuario.postCreate);

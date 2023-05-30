@@ -1,6 +1,6 @@
 const Evento        = require('../models/models_nosql/evento');
 const Apresentacao  = require('../models/models_nosql/apresentacao');
-const moment = require('moment');
+const moment        = require('moment');
 
 module.exports = {
     async getCreate(req, res) {
@@ -38,9 +38,26 @@ module.exports = {
     },
     async postEdit(req, res) {
         var {data_fim, data_fim_exibicao, excluido} = req.body;
-        data_fim_exibicao = moment(data_fim).format('DD/MM/YYYY');
-        excluido          = false;
+        let currentDate      = new Date();
+        let dataEncerramento = new Date(data_fim);
+        data_fim_exibicao    = moment(data_fim).format('DD/MM/YYYY');
+        excluido             = false;
+        if (dataEncerramento < currentDate){
+            excluido = true
+        }
         await Evento.findOneAndUpdate({_id:req.body.id}, {data_fim, data_fim_exibicao, excluido});
+
+        const apresentacao = await Apresentacao.find();
+
+        if(apresentacao.length > 0){
+            for (const apresentacaoAlterada of apresentacao) {
+                if(apresentacaoAlterada.id_evento == req.body.id){
+                    data_encerramento = dataEncerramento;
+                    await Apresentacao.findOneAndUpdate({ _id: apresentacaoAlterada._id}, {data_encerramento, excluido});
+                }
+            }
+        }
+
         res.redirect('/eventoList');
     },
     async getDelete(req, res) {
